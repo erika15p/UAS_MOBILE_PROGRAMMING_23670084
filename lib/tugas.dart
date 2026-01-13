@@ -171,8 +171,38 @@ class _TugasPageState extends State<TugasPage> {
   }
 
   void hapusTugas(int index) {
-    tugasBox.deleteAt(index);
-    setState(() {});
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text(
+          "Hapus Tugas",
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            color: primaryColor,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        content: const Text(
+          "Apakah kamu yakin ingin menghapus tugas ini?",
+          style: TextStyle(fontFamily: 'Poppins'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Batal", style: TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+            onPressed: () {
+              tugasBox.deleteAt(index);
+              setState(() {});
+              Navigator.pop(context);
+            },
+            child: const Text("Hapus", style: TextStyle(color: primaryColor)),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
