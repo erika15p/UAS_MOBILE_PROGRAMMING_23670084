@@ -241,20 +241,20 @@ class _BerandaPageState extends State<BerandaPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text("Logout"),
+        title: const Text("Logout", style: TextStyle(color: primaryColor)),
         content: const Text("Apakah kamu yakin ingin logout?"),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Batal"),
+            child: const Text("Batal", style: TextStyle(color: primaryColor)),
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
             onPressed: () {
               Navigator.pop(context);
               Navigator.pushReplacementNamed(context, '/login');
             },
-            child: const Text("Logout"),
+            child: const Text("Logout", style: TextStyle(color: primaryColor)),
           ),
         ],
       ),
