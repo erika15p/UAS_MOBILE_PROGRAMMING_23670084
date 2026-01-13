@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:floating_navbar/floating_navbar.dart';
-import 'package:floating_navbar/floating_navbar_item.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'login.dart';
@@ -73,7 +71,7 @@ class AuthCheck extends StatelessWidget {
 }
 
 // ======================================================
-// HALAMAN DENGAN FLOATING NAVBAR
+// HALAMAN DENGAN BOTTOM NAVBAR (TIDAK MELAYANG)
 // ======================================================
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -83,46 +81,53 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int index = 0;
+  int _currentIndex = 0;
 
-  final List<Widget> pages = const [
+  final List<Widget> _pages = const [
     BerandaPage(),
     TugasPage(),
     JadwalPage(),
     ProfilPage(),
   ];
 
+  static const Color primaryColor = Color(0xFFBC8634);
+
   @override
   Widget build(BuildContext context) {
-    return FloatingNavBar(
-      color: Colors.white,
-      borderRadius: 28,
-      selectedIconColor: const Color(0xFFBC8634),
-      unselectedIconColor: Colors.grey,
-      showTitle: true,
-      horizontalPadding: 10,
-      items: [
-        FloatingNavBarItem(
-          iconData: Icons.home_rounded,
-          title: 'Beranda',
-          page: pages[0],
-        ),
-        FloatingNavBarItem(
-          iconData: Icons.task_rounded,
-          title: 'Tugas',
-          page: pages[1],
-        ),
-        FloatingNavBarItem(
-          iconData: Icons.schedule_rounded,
-          title: 'Jadwal',
-          page: pages[2],
-        ),
-        FloatingNavBarItem(
-          iconData: Icons.person_rounded,
-          title: 'Profil',
-          page: pages[3],
-        ),
-      ],
+    return Scaffold(
+      body: _pages[_currentIndex],
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.white,
+        showUnselectedLabels: true,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: 'Beranda',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.task_rounded),
+            label: 'Tugas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.schedule_rounded),
+            label: 'Jadwal',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_rounded),
+            label: 'Profil',
+          ),
+        ],
+      ),
     );
   }
 }

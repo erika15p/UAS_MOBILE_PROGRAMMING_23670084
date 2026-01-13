@@ -17,12 +17,11 @@ class _TugasPageState extends State<TugasPage> {
   @override
   void initState() {
     super.initState();
-    // Inisialisasi box Hive
     tugasBox = Hive.box('tugasBox');
 
-    // Update idCounter berdasarkan data terakhir
     if (tugasBox.isNotEmpty) {
-      idCounter = tugasBox.values
+      idCounter =
+          tugasBox.values
               .map((e) => e['id'] as int)
               .reduce((a, b) => a > b ? a : b) +
           1;
@@ -42,7 +41,6 @@ class _TugasPageState extends State<TugasPage> {
     }
   }
 
-  // ================= TAMBAH =================
   void showTambahDialog() {
     final judulCtrl = TextEditingController();
     final matkulCtrl = TextEditingController();
@@ -65,10 +63,18 @@ class _TugasPageState extends State<TugasPage> {
           child: Column(
             children: [
               _inputField(judulCtrl, "Judul", primaryColor: primaryColor),
-              _inputField(matkulCtrl, "Mata Kuliah", primaryColor: primaryColor),
+              _inputField(
+                matkulCtrl,
+                "Mata Kuliah",
+                primaryColor: primaryColor,
+              ),
               _inputField(deadlineCtrl, "Deadline", primaryColor: primaryColor),
-              _inputField(deskripsiCtrl, "Deskripsi",
-                  maxLines: 3, primaryColor: primaryColor),
+              _inputField(
+                deskripsiCtrl,
+                "Deskripsi",
+                maxLines: 3,
+                primaryColor: primaryColor,
+              ),
             ],
           ),
         ),
@@ -99,7 +105,6 @@ class _TugasPageState extends State<TugasPage> {
     );
   }
 
-  // ================= EDIT =================
   void showEditDialog(int index) {
     final tugas = tugasBox.getAt(index) as Map;
     final judulCtrl = TextEditingController(text: tugas['judul']);
@@ -123,10 +128,18 @@ class _TugasPageState extends State<TugasPage> {
           child: Column(
             children: [
               _inputField(judulCtrl, "Judul", primaryColor: primaryColor),
-              _inputField(matkulCtrl, "Mata Kuliah", primaryColor: primaryColor),
+              _inputField(
+                matkulCtrl,
+                "Mata Kuliah",
+                primaryColor: primaryColor,
+              ),
               _inputField(deadlineCtrl, "Deadline", primaryColor: primaryColor),
-              _inputField(deskripsiCtrl, "Deskripsi",
-                  maxLines: 3, primaryColor: primaryColor),
+              _inputField(
+                deskripsiCtrl,
+                "Deskripsi",
+                maxLines: 3,
+                primaryColor: primaryColor,
+              ),
             ],
           ),
         ),
@@ -157,7 +170,6 @@ class _TugasPageState extends State<TugasPage> {
     );
   }
 
-  // ================= DELETE =================
   void hapusTugas(int index) {
     tugasBox.deleteAt(index);
     setState(() {});
@@ -184,7 +196,24 @@ class _TugasPageState extends State<TugasPage> {
         ),
       ),
       body: tugasList.isEmpty
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.assignment_outlined, size: 80, color: Colors.grey),
+                  SizedBox(height: 16),
+                  Text(
+                    "Belum ada tugas",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            )
           : Column(
               children: [
                 const SizedBox(height: 10),
@@ -204,7 +233,10 @@ class _TugasPageState extends State<TugasPage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                     gradient: const LinearGradient(
-                      colors: [Color.fromARGB(255, 224, 157, 90), Color(0xFF8F67E8)],
+                      colors: [
+                        Color.fromARGB(255, 224, 157, 90),
+                        Color(0xFF8F67E8),
+                      ],
                     ),
                   ),
                 ),
@@ -214,7 +246,8 @@ class _TugasPageState extends State<TugasPage> {
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     itemCount: tugasList.length,
                     itemBuilder: (context, index) {
-                      final item = tugasList[index] as Map;
+                      final reverseIndex = tugasBox.length - 1 - index;
+                      final item = tugasBox.getAt(reverseIndex) as Map;
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -239,7 +272,11 @@ class _TugasPageState extends State<TugasPage> {
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withValues(
-                                    alpha: 20, red: 0, green: 0, blue: 0),
+                                  alpha: 20,
+                                  red: 0,
+                                  green: 0,
+                                  blue: 0,
+                                ),
                                 blurRadius: 8,
                               ),
                             ],
@@ -247,42 +284,61 @@ class _TugasPageState extends State<TugasPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(item['judul'],
-                                  style: const TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600)),
+                              Text(
+                                item['judul'],
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                               const SizedBox(height: 4),
-                              Text(item['matkul'],
-                                  style: const TextStyle(
-                                      fontFamily: 'Poppins', color: Colors.grey)),
+                              Text(
+                                item['matkul'],
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.grey,
+                                ),
+                              ),
                               const SizedBox(height: 4),
-                              Text("Deadline: ${item['deadline']}",
-                                  style: const TextStyle(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.redAccent)),
+                              Text(
+                                "Deadline: ${item['deadline']}",
+                                style: const TextStyle(
+                                  fontFamily: 'Poppins',
+                                  color: Colors.redAccent,
+                                ),
+                              ),
                               const SizedBox(height: 10),
                               Row(
                                 children: [
                                   IconButton(
-                                    icon: const Icon(Icons.edit,
-                                        color: Color.fromARGB(255, 99, 100, 100)),
-                                    onPressed: () => showEditDialog(index),
+                                    icon: const Icon(
+                                      Icons.edit,
+                                      color: Color.fromARGB(255, 99, 100, 100),
+                                    ),
+                                    onPressed: () =>
+                                        showEditDialog(reverseIndex),
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.delete,
-                                        color: Color.fromARGB(255, 99, 100, 100)),
-                                    onPressed: () => hapusTugas(index),
+                                    icon: const Icon(
+                                      Icons.delete,
+                                      color: Color.fromARGB(255, 99, 100, 100),
+                                    ),
+                                    onPressed: () => hapusTugas(reverseIndex),
                                   ),
                                 ],
                               ),
                               Container(
                                 padding: const EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 2),
+                                  horizontal: 8,
+                                  vertical: 2,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(12),
-                                  border:
-                                      Border.all(color: Colors.orange, width: 1.5),
+                                  border: Border.all(
+                                    color: Colors.orange,
+                                    width: 1.5,
+                                  ),
                                 ),
                                 child: DropdownButton<String>(
                                   value: item['status'],
@@ -302,19 +358,23 @@ class _TugasPageState extends State<TugasPage> {
                                     ),
                                     DropdownMenuItem(
                                       value: "Proses",
-                                      child: Text("Proses",
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            color: statusTextColor("Proses"),
-                                          )),
+                                      child: Text(
+                                        "Proses",
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          color: statusTextColor("Proses"),
+                                        ),
+                                      ),
                                     ),
                                     DropdownMenuItem(
                                       value: "Selesai",
-                                      child: Text("Selesai",
-                                          style: TextStyle(
-                                            fontFamily: 'Poppins',
-                                            color: statusTextColor("Selesai"),
-                                          )),
+                                      child: Text(
+                                        "Selesai",
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          color: statusTextColor("Selesai"),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                   onChanged: (value) {
@@ -322,12 +382,13 @@ class _TugasPageState extends State<TugasPage> {
                                       ...item,
                                       "status": value!,
                                     };
-                                    tugasBox.putAt(index, updatedItem);
+                                    tugasBox.putAt(reverseIndex, updatedItem);
                                     setState(() {});
                                   },
                                   selectedItemBuilder: (context) {
-                                    return ["Belum", "Proses", "Selesai"]
-                                        .map((status) {
+                                    return ["Belum", "Proses", "Selesai"].map((
+                                      status,
+                                    ) {
                                       return Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
@@ -362,7 +423,6 @@ class _TugasPageState extends State<TugasPage> {
     );
   }
 
-  // ================= INPUT STYLE =================
   static Widget _inputField(
     TextEditingController controller,
     String label, {

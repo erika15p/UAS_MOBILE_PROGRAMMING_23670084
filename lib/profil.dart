@@ -10,7 +10,7 @@ class ProfilPage extends StatefulWidget {
 class _ProfilPageState extends State<ProfilPage> {
   static const Color primaryColor = Color(0xFFBC8634);
 
-  // ===== DATA PROFIL (AWAL) =====
+  // DATA AWAL
   String nama = "Erika Puji Suhartanti";
   String semester = "Semester 5";
   String nim = "23670084";
@@ -50,7 +50,6 @@ class _ProfilPageState extends State<ProfilPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            /// ===== HEADER MIRING =====
             Stack(
               children: [
                 Container(
@@ -98,7 +97,6 @@ class _ProfilPageState extends State<ProfilPage> {
 
             const SizedBox(height: 8),
 
-            /// ===== NAMA =====
             Text(
               nama,
               style: const TextStyle(
@@ -110,7 +108,6 @@ class _ProfilPageState extends State<ProfilPage> {
 
             const SizedBox(height: 4),
 
-            /// ===== SEMESTER =====
             Text(
               semester,
               style: const TextStyle(
@@ -121,16 +118,27 @@ class _ProfilPageState extends State<ProfilPage> {
 
             const SizedBox(height: 28),
 
-            /// ===== INFORMASI PROFIL =====
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 children: [
                   _ProfileItem(icon: Icons.badge, title: "NIM", value: nim),
-                  _ProfileItem(icon: Icons.school, title: "Program Studi", value: prodi),
-                  _ProfileItem(icon: Icons.school_outlined, title: "Kampus", value: kampus),
+                  _ProfileItem(
+                    icon: Icons.school,
+                    title: "Program Studi",
+                    value: prodi,
+                  ),
+                  _ProfileItem(
+                    icon: Icons.school_outlined,
+                    title: "Kampus",
+                    value: kampus,
+                  ),
                   _ProfileItem(icon: Icons.email, title: "Email", value: email),
-                  _ProfileItem(icon: Icons.phone, title: "No. Telepon", value: telepon),
+                  _ProfileItem(
+                    icon: Icons.phone,
+                    title: "No. Telepon",
+                    value: telepon,
+                  ),
                 ],
               ),
             ),
@@ -142,7 +150,6 @@ class _ProfilPageState extends State<ProfilPage> {
     );
   }
 
-  // ================= EDIT PROFIL DIALOG =================
   void _showEditDialog() {
     final namaC = TextEditingController(text: nama);
     final semesterC = TextEditingController(text: semester);
@@ -172,7 +179,10 @@ class _ProfilPageState extends State<ProfilPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("Batal", style: TextStyle(color: Color(0xFFBC8634))),
+            child: const Text(
+              "Batal",
+              style: TextStyle(color: Color(0xFFBC8634)),
+            ),
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
@@ -188,7 +198,10 @@ class _ProfilPageState extends State<ProfilPage> {
               });
               Navigator.pop(context);
             },
-            child: const Text("Simpan", style: TextStyle(color: Color(0xFFBC8634)),),
+            child: const Text(
+              "Simpan",
+              style: TextStyle(color: Color(0xFFBC8634)),
+            ),
           ),
         ],
       ),
@@ -209,7 +222,6 @@ class _ProfilPageState extends State<ProfilPage> {
   }
 }
 
-/// ================= ITEM PROFIL =================
 class _ProfileItem extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -233,10 +245,7 @@ class _ProfileItem extends StatelessWidget {
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 224, 157, 90),
-                  Color(0xFF8F67E8),
-                ],
+                colors: [Color.fromARGB(255, 224, 157, 90), Color(0xFF8F67E8)],
               ),
             ),
             child: Icon(icon, color: Colors.white, size: 20),
@@ -270,7 +279,7 @@ class _ProfileItem extends StatelessWidget {
   }
 }
 
-/// ================= CLIPPER MIRING =================
+/// MIRINGAN HEADER
 class _DiagonalClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {

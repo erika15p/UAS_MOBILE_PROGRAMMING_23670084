@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # uts
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# UAS_MOBILE_PROGRAMMING_23670084
+>>>>>>> 274d06b32672cb80be150bf58c7c45d93ecda9e4

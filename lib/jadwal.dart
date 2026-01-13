@@ -150,7 +150,28 @@ class _JadwalPageState extends State<JadwalPage> {
         ),
       ),
       body: jadwalList.isEmpty
-          ? const Center(child: CircularProgressIndicator())
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.calendar_month_outlined,
+                    size: 80,
+                    color: Colors.grey,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    "Belum ada jadwal",
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            )
           : Column(
               children: [
                 const SizedBox(height: 6),
@@ -192,7 +213,11 @@ class _JadwalPageState extends State<JadwalPage> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withValues(
-                                  alpha: 20, red: 0, green: 0, blue: 0),
+                                alpha: 20,
+                                red: 0,
+                                green: 0,
+                                blue: 0,
+                              ),
                               blurRadius: 8,
                             ),
                           ],
@@ -215,13 +240,17 @@ class _JadwalPageState extends State<JadwalPage> {
                             Row(
                               children: [
                                 IconButton(
-                                  icon:
-                                      const Icon(Icons.edit, color: Colors.grey),
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.grey,
+                                  ),
                                   onPressed: () => showEditDialog(index),
                                 ),
                                 IconButton(
-                                  icon: const Icon(Icons.delete,
-                                      color: Colors.grey),
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.grey,
+                                  ),
                                   onPressed: () => hapusJadwal(index),
                                 ),
                               ],
