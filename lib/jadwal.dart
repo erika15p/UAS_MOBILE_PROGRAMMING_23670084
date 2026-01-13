@@ -126,8 +126,38 @@ class _JadwalPageState extends State<JadwalPage> {
 
   // ================= DELETE =================
   void hapusJadwal(int index) {
-    jadwalBox.deleteAt(index);
-    setState(() {});
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text(
+          "Hapus Jadwal",
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            color: primaryColor,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        content: const Text(
+          "Apakah kamu yakin ingin menghapus jadwal ini?",
+          style: TextStyle(fontFamily: 'Poppins'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Batal", style: TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+            onPressed: () {
+              jadwalBox.deleteAt(index);
+              setState(() {});
+              Navigator.pop(context);
+            },
+            child: const Text("Hapus", style: TextStyle(color: primaryColor)),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
